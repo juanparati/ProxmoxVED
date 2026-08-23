@@ -26,16 +26,18 @@ chmod +x /opt/zeroclaw/zeroclaw
 ln -sf /opt/zeroclaw/zeroclaw /usr/local/bin/zeroclaw
 
 msg_info "Configuring ZeroClaw"
-mkdir -p /opt/zeroclaw_data/zeroclaw
-cat <<EOF >/opt/zeroclaw_data/zeroclaw/config.toml
+mkdir -p /root/.zeroclaw
+cat <<EOF >/root/.zeroclaw/config.toml
 [gateway]
 host = "0.0.0.0"
 port = 42617
 allow_public_bind = true
+allow_remote_admin = true
 
 [storage]
 path = "/opt/zeroclaw_data"
 EOF
+mkdir -p /opt/zeroclaw_data
 msg_ok "Configured ZeroClaw"
 
 msg_info "Creating Service"
@@ -49,8 +51,6 @@ After=network-online.target
 Type=simple
 User=root
 WorkingDirectory=/opt/zeroclaw_data
-Environment=XDG_CONFIG_HOME=/opt/zeroclaw_data
-Environment=ZEROCLAW_HOME=/opt/zeroclaw_data
 ExecStart=/opt/zeroclaw/zeroclaw daemon
 Restart=on-failure
 RestartSec=5
