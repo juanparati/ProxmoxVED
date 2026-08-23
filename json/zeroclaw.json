@@ -1,0 +1,54 @@
+{
+  "name": "ZeroClaw",
+  "slug": "zeroclaw",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-08-23",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "architectures": ["amd64", "arm64"],
+  "interface_port": 42617,
+  "documentation": "https://docs.zeroclawlabs.ai/v0.8.4/en/introduction.html",
+  "website": "https://zeroclawlabs.ai",
+  "repository": "https://github.com/zeroclaw-labs/zeroclaw",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/zeroclaw.webp",
+  "description": "ZeroClaw is a personal AI agent runtime written in Rust. A single binary connects to 80+ LLM providers (Anthropic, OpenAI, Ollama, and others), routes messages from 40+ channels (Discord, Telegram, Matrix, webhooks), and executes tools such as shell commands, web browsing, and HTTP requests. You own the agent, the data, and the machine it runs on.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/zeroclaw.sh",
+      "config_path": "/opt/zeroclaw_data/zeroclaw/config.toml",
+      "resources": {
+        "cpu": 2,
+        "ram": 1024,
+        "hdd": 4,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Open http://<IP>:42617 in a browser and run the quickstart wizard. You must configure at least one LLM provider (API key for Anthropic, OpenAI, or a local Ollama address) and create an agent before ZeroClaw is functional.",
+      "type": "warning"
+    },
+    {
+      "text": "The gateway binds to 0.0.0.0:42617 with no authentication by default. Restrict access to a trusted network or add a reverse proxy with auth before exposing it publicly. A session token can be configured in /opt/zeroclaw_data/zeroclaw/config.toml under [gateway].",
+      "type": "warning"
+    },
+    {
+      "text": "ZeroClaw does not run models locally — it proxies requests to external providers. Point it at an existing Ollama container or a hosted API such as OpenAI or Anthropic.",
+      "type": "info"
+    },
+    {
+      "text": "All persistent data lives in /opt/zeroclaw_data (outside the app directory), so it survives updates. Include /opt/zeroclaw_data in regular backups.",
+      "type": "info"
+    }
+  ]
+}
