@@ -20,7 +20,7 @@ $STD apt install -y \
   libcups2
 msg_ok "Installed Dependencies"
 
-fetch_and_deploy_gh_release "zeroclaw" "zeroclaw-labs/zeroclaw" "prebuild" "latest" "/opt/zeroclaw" \
+fetch_and_deploy_gh_release "zeroclaw-bin" "zeroclaw-labs/zeroclaw" "prebuild" "latest" "/opt/zeroclaw" \
   "zeroclaw-$(arch_resolve x86_64-unknown-linux-gnu aarch64-unknown-linux-gnu).tar.gz"
 chmod +x /opt/zeroclaw/zeroclaw
 ln -sf /opt/zeroclaw/zeroclaw /usr/local/bin/zeroclaw

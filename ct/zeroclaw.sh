@@ -36,12 +36,12 @@ function update_script() {
     exit
   fi
 
-  if check_for_gh_release "zeroclaw" "zeroclaw-labs/zeroclaw"; then
+  if check_for_gh_release "zeroclaw-bin" "zeroclaw-labs/zeroclaw"; then
     msg_info "Stopping Service"
     systemctl stop zeroclaw
     msg_ok "Stopped Service"
 
-    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "zeroclaw" "zeroclaw-labs/zeroclaw" "prebuild" "latest" "/opt/zeroclaw" \
+    CLEAN_INSTALL=1 fetch_and_deploy_gh_release "zeroclaw-bin" "zeroclaw-labs/zeroclaw" "prebuild" "latest" "/opt/zeroclaw" \
       "zeroclaw-$(arch_resolve x86_64-unknown-linux-gnu aarch64-unknown-linux-gnu).tar.gz"
     chmod +x /opt/zeroclaw/zeroclaw
 
