@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Copyright (c) 2021-2026 community-scripts ORG
-# Author: juanvmr
+# Author: Juan Lago (juanparati)
 # License: MIT | https://github.com/community-scripts/ProxmoxVED/raw/main/LICENSE
 # Source: https://github.com/zeroclaw-labs/zeroclaw
 
@@ -23,10 +23,11 @@ msg_ok "Installed Dependencies"
 fetch_and_deploy_gh_release "zeroclaw" "zeroclaw-labs/zeroclaw" "prebuild" "latest" "/opt/zeroclaw" \
   "zeroclaw-$(arch_resolve x86_64-unknown-linux-gnu aarch64-unknown-linux-gnu).tar.gz"
 chmod +x /opt/zeroclaw/zeroclaw
+ln -sf /opt/zeroclaw/zeroclaw /usr/local/bin/zeroclaw
 
 msg_info "Configuring ZeroClaw"
-mkdir -p /opt/zeroclaw_data
-cat <<EOF >/opt/zeroclaw_data/config.toml
+mkdir -p /opt/zeroclaw_data/zeroclaw
+cat <<EOF >/opt/zeroclaw_data/zeroclaw/config.toml
 [gateway]
 host = "0.0.0.0"
 port = 42617
@@ -49,6 +50,7 @@ Type=simple
 User=root
 WorkingDirectory=/opt/zeroclaw_data
 Environment=XDG_CONFIG_HOME=/opt/zeroclaw_data
+Environment=ZEROCLAW_HOME=/opt/zeroclaw_data
 ExecStart=/opt/zeroclaw/zeroclaw daemon
 Restart=on-failure
 RestartSec=5
